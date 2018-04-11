@@ -79,3 +79,105 @@ p=&a;//wrong
 
 ```
 # 函数模板作为类模板成员
+例子：
+```ruby
+#include<iostream>
+using namespace std;
+template <class T>
+class A
+{
+    public:
+    template<class T2>
+    void Func(T2 t){cout<<t;}
+};
+int main()
+{
+    A <int>a;
+    a.Func('K');
+    return 0;
+}
+输出结果为K
+
+```
+1.  类模板的参数声明中可以包括非类型参数，用来说明类模板中的固定属性；类型参数用来说明类模板中的属性类型，成员操作的参数类型和返回值类型。
+
+```ruby
+template <class T,int size>
+class CArray{
+    T array[size];
+    public:
+    void Print()
+    {
+        for(int i=0;i<size;i++)
+        cout<<array[i]<<endl;
+    }
+};
+//size是每个类都会有的一个参数，而且每个类的都是int型
+```
+2. 非类型参数不一样的类也是不同类
+# 类模板的派生与继承
+- 类模板派生出类模板
+ 
+```ruby
+template <class T1,class T2>
+class A
+{
+    T1 v1;
+    T2 v2;
+};
+template <class T1, class T2>
+class B:public A<T2, T1>
+{
+    T1 v3;
+    T2 v4;
+};
+//在实际调用中，子类B中传入的参数类型也会传给父类A
+```
+
+- 模板类派生出类模板
+
+```ruby
+template<class T1,class T2>
+class A
+{
+    T1 v1;
+    T2 v2;
+};
+template<class T>
+class B:public A<int double>
+{
+    T v;
+};
+//一个类已经被实例化，再从已经被实例化的模板类去派生类模板
+```
+
+- 普通类派生出类模板
+
+```ruby
+class A
+{
+    int v1;
+};
+template <class T>
+class B:public A
+{
+    T v;
+};
+
+```
+
+- 模板类派生出普通类
+
+```ruby
+template <class T>
+class A
+{
+    T v1;
+    int n;
+};
+class B:public A<int >
+{
+    double v;
+};
+//模板类实例化出一个类模板，再派生出一个普通类
+```
