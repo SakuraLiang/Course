@@ -44,7 +44,7 @@ int main()
 	return 0;
 }
 ```
--如果自己写的构造函数都是有参数的，在生成对象时没有用相应的参数初始化，则会报错。
+- 如果自己写的构造函数都是有参数的，在生成对象时没有用相应的参数初始化，则会报错。
 ```ruby
 #include<iostream>
 using namespace std;
